@@ -63,11 +63,11 @@ const CardForm = () => {
     console.log("[PaymentMethod]", payload);
   };
 
-  // Background colors for light/dark mode
+ 
   const bgColor = useColorModeValue("gray.100", "gray.700");
   const formBg = useColorModeValue("white", "gray.800");
 
-  // Color mode switcher
+  
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -77,9 +77,9 @@ const CardForm = () => {
       justifyContent="center"
       bg={bgColor}
       px={4}
-      position="relative" // Ensure positioning for icon button
+      position="relative" 
     >
-      {/* Light/Dark Mode Toggle Button */}
+     
       <IconButton
         icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
         position="absolute"
@@ -101,7 +101,7 @@ const CardForm = () => {
         borderRadius="lg"
         shadow="xl"
       >
-        {/* Form Heading */}
+       
         <VStack spacing={3} mb={6}>
           <Heading size="lg" color="purple.600" textAlign="center">
             Payment Details
@@ -111,7 +111,7 @@ const CardForm = () => {
           </Text>
         </VStack>
 
-        {/* Card Details Form */}
+       
         <FormControl>
           <FormLabel fontWeight="bold" color="gray.600">
             Card Details
@@ -143,7 +143,7 @@ const CardForm = () => {
           </Box>
         </FormControl>
 
-        {/* Submit Button */}
+       
         <Button
           onClick={() => navigate('/feedback')}
           type="submit"

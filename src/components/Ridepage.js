@@ -22,7 +22,7 @@ const Ridepage = () => {
   const [fromLocation, setFromLocation] = useState({ lat: 37.7749, lng: -122.4194 });
   const [toLocation, setToLocation] = useState({ lat: 37.7849, lng: -122.4094 });
 
-  const [selectedRide, setSelectedRide] = useState(null); // Track the selected ride
+  const [selectedRide, setSelectedRide] = useState(null); 
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -30,7 +30,7 @@ const Ridepage = () => {
 
   const rides = [
     {
-      type: 'UberX',
+      type: 'Micro',
       price: '₹123.03',
       passengers: 4,
       time: '12:34 pm - 2 min away',
@@ -130,9 +130,9 @@ const Ridepage = () => {
             width="100%"
             p={2}
             borderRadius="md"
-            bg={selectedRide === index ? 'blue.200' : 'gray.50'} // Highlight selected ride
-            onClick={() => handleRideSelection(index)} // Select ride on click
-            cursor="pointer" // Make it look clickable
+            bg={selectedRide === index ? 'blue.200' : 'gray.50'} 
+            onClick={() => handleRideSelection(index)} 
+            cursor="pointer" 
           >
             <Flex align="center">
               <Avatar src={ride.imageSrc} mr={3} />
@@ -162,7 +162,7 @@ const Ridepage = () => {
           width="100%"
           onClick={() => {
             if (selectedRide !== null) {
-              navigate('/lastpage', { state: { ride: rides[selectedRide] } }); // Pass selected ride data
+              navigate('/lastpage', { state: { ride: rides[selectedRide] } }); 
             } else {
               alert('Please select a ride first!');
             }

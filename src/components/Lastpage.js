@@ -19,7 +19,7 @@ import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 const Lastpage = () => {
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
-  const [selectedRide, setSelectedRide] = useState(null); // Track selected ride
+  const [selectedRide, setSelectedRide] = useState(null); 
 
   const bgColor = useColorModeValue('purple.100', 'gray.800');
   const sectionBgColor = useColorModeValue('white', 'gray.700');
@@ -32,31 +32,31 @@ const Lastpage = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
-  // Updated rides data with image sources
+ 
   const rides = [
     {
-      route: 'Economy Micro',
+      route: 'Economy',
       price: '₹123.03',
       time: '3:00 pm',
       preferences: 'Matches Preferences',
       alerts: 'No alerts',
-      imageSrc: '/car.png', // Image for Economy Micro
+      imageSrc: '/blacksuv.png', 
     },
     {
-      route: 'SUV',
+      route: 'Rental',
       price: '₹133.03',
       time: '3:15 pm',
       preferences: 'Matches Preferences',
       alerts: 'No alerts',
-      imageSrc: '/suv.png', // Image for SUV
+      imageSrc: '/car.png', 
     },
     {
-      route: 'Premium Sedan',
+      route: 'Premium',
       price: '₹153.03',
       time: '3:25 pm',
       preferences: 'Matches Preferences',
       alerts: 'No alerts',
-      imageSrc: '/sedan.png', // Image for Premium Sedan
+      imageSrc: '/sedan.png',
     },
   ];
 
@@ -74,7 +74,7 @@ const Lastpage = () => {
   return (
     <Box bg={bgColor} height="100vh" p={4} width="100vw" mx="auto">
       <Box position="relative" width="100%">
-        {/* Back button */}
+       
         <IconButton
           icon={<ArrowBackIcon />}
           position="absolute"
@@ -134,17 +134,17 @@ const Lastpage = () => {
           <VStack
             key={index}
             align="start"
-            bg={selectedRide === index ? 'blue.200' : 'gray.50'} // Highlight selected ride
+            bg={selectedRide === index ? 'blue.200' : 'gray.50'} 
             p={4}
             borderRadius="md"
             width="100%"
             boxShadow="sm"
             cursor="pointer"
-            onClick={() => handleRideSelection(index)} // Select ride on click
+            onClick={() => handleRideSelection(index)} 
           >
             <HStack justify="space-between" width="100%">
               <HStack>
-                {/* Display ride image */}
+              
                 <Image src={ride.imageSrc} boxSize="40px" alt="Route Icon" />
                 <VStack align="start" spacing={0}>
                   <Text fontSize="lg" fontWeight="bold">
@@ -175,7 +175,7 @@ const Lastpage = () => {
           width="100%"
           onClick={() => {
             if (selectedRide !== null) {
-              navigate('/card-element', { state: { ride: rides[selectedRide] } }); // Pass selected ride data
+              navigate('/card-element', { state: { ride: rides[selectedRide] } }); 
             } else {
               alert('Please select a ride first!');
             }

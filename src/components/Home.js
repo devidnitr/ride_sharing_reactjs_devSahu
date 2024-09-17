@@ -26,8 +26,9 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  Stack
+  Stack,
 } from "@chakra-ui/react";
+import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa"; 
 import { MdNotifications } from "react-icons/md";
 import { ChevronDownIcon, ChevronRightIcon, SunIcon, MoonIcon } from "@chakra-ui/icons";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
@@ -44,14 +45,6 @@ export default function Home() {
   const [selectingFrom, setSelectingFrom] = useState(true);
 
   const { colorMode, toggleColorMode } = useColorMode();
-  const layout = useBreakpointValue({ base: "column", md: "row" });
-  const imageSize = useBreakpointValue({ base: "60px", md: "120px" });
-  const gridTemplateColumns = useBreakpointValue({ base: "1fr", md: "repeat(3, 1fr)" });
-  const boxHeight = useBreakpointValue({ base: "120px", md: "200px" });
-
-  const textColor = useColorModeValue("#763AD7", "purple.300");
-  const sectionBgColor = useColorModeValue("gray.100", "gray.700");
-
   const center = { lat: 37.7749, lng: -122.4194 };
 
   const { isLoaded } = useJsApiLoader({
@@ -93,12 +86,23 @@ export default function Home() {
   }
 
   return (
-    <Box p="6" maxW="100%" borderRadius="lg" boxShadow="xl" bg={useColorModeValue("white", "gray.900")}>
-      {/* Header Section */}
-      <Flex justify="space-between" align="center" mb={6}>
-        <Text fontSize={{ base: '2xl', md: '4xl' }} fontWeight="bold" ml={20}>
-          Request a ride for now or later
-        </Text>
+    <Box
+      p={{ base: 4, md: 6 }}
+      borderRadius="lg"
+      boxShadow="xl"
+      bg={useColorModeValue("white", "gray.900")}
+    >
+     
+      <Flex justify="space-between" align="center" mb={{ base: 4, md: 6 }}>
+      <Text
+  fontSize={{ base: "xl", md: "2xl", lg: "4xl", xl: "5xl" }}  
+  ml={{ base: 4, sm: 8, md: 20, lg: 32 }} 
+  textAlign={{ base: "center", md: "left" }}  
+  mt={{ base: 4, md: 6 }} 
+>
+  Request a ride for now or later
+</Text>
+
 
         <Flex align="center">
           <Button variant="ghost" onClick={onShareOpen}>
@@ -107,9 +111,23 @@ export default function Home() {
           <Button variant="ghost" onClick={onHistoryOpen} ml={4}>
             Ride History
           </Button>
+          <Button
+    colorScheme="purple" 
+    variant="solid"     
+    onClick={() => navigate("/login")} 
+    ml={4}             
+  >
+    Login
+  </Button>
 
           <Menu>
-            <MenuButton as={IconButton} icon={<MdNotifications />} variant="ghost" aria-label="Notifications" fontSize="3xl" />
+            <MenuButton
+              as={IconButton}
+              icon={<MdNotifications />}
+              variant="ghost"
+              aria-label="Notifications"
+              fontSize="3xl"
+            />
             <MenuList>
               <MenuItem>Your ride is arriving in 5 minutes</MenuItem>
               <MenuItem>Your OTP is 2118</MenuItem>
@@ -139,192 +157,239 @@ export default function Home() {
         </Flex>
       </Flex>
 
-      <Flex justify="space-between" align="center">
-        {/* Left Side - Ride Request */}
-        <Box flex="1" mr={8}>
-          <Text 
-            mb={4} 
-            fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}  // Responsive font size
-            fontWeight="semi-bold"  // Make the text bold
-            color="#3F4BBB"   // Apply a stylish color
-            textAlign="center" // Center the text
-            lineHeight="tall"  // Add a taller line height for better readability
+      <Flex justify="space-between" align="center" direction={{ base: "column", lg: "row" }}>
+       
+        <Box flex="1" mr={{ base: 0, lg: 8 }} mb={{ base: 4, lg: 0 }}>
+          <Text
+            mb={4}
+            fontSize={{ base: "xl", md: "2xl", lg: "3xl" }} 
+            fontWeight="semi-bold"
+            color="#3F4BBB"
+            textAlign="center"
+            lineHeight="tall"
           >
             Add your trip details, hop in, and go.
           </Text>
           <Stack spacing={4}>
-            {/* From Location Input */}
-            <Input 
-              placeholder="Enter location" 
-              size="lg" 
-              value={fromLocation ? `Lat: ${fromLocation.lat}, Lng: ${fromLocation.lng}` : ""} 
-              readOnly 
+           
+            <Input
+              placeholder="Enter location"
+              size="lg"
+              value={fromLocation ? `Lat: ${fromLocation.lat}, Lng: ${fromLocation.lng}` : ""}
+              readOnly
             />
 
-            {/* To Location Input */}
-            <Input 
-              placeholder="Enter destination" 
-              size="lg" 
-              value={toLocation ? `Lat: ${toLocation.lat}, Lng: ${toLocation.lng}` : ""} 
-              readOnly 
+           
+            <Input
+              placeholder="Enter destination"
+              size="lg"
+              value={toLocation ? `Lat: ${toLocation.lat}, Lng: ${toLocation.lng}` : ""}
+              readOnly
             />
           </Stack>
 
-          {/* Buttons for prices and scheduling */}
-          <Stack direction="row" spacing={4} mt={6}>
-            <Button colorScheme="purple" size="lg" boxShadow="md"
+         
+          <Stack direction={{ base: "column", md: "row" }} spacing={4} mt={6}>
+            <Button
+              colorScheme="purple"
+              size="lg"
+              boxShadow="md"
               _hover={{ transform: "scale(1.05)" }}
-              onClick={() => navigate("/ridepage")}>
+              onClick={() => navigate("/ridepage")}
+              width={{ base: "100%", md: "auto" }} 
+            >
               See prices
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" width={{ base: "100%", md: "auto" }}>
               Schedule for later
             </Button>
           </Stack>
         </Box>
 
-        {/* Right Side - Image */}
-        <Box flex="1" h="400px" borderRadius="lg" overflow="hidden" mb={8}>
-          <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            center={center}
-            zoom={12}
-            onClick={handleMapClick}
-          >
+       
+        <Box flex="1" h={{ base: "300px", md: "400px" }} w="full" borderRadius="lg" overflow="hidden">
+          <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={12} onClick={handleMapClick}>
             {fromLocation && <Marker position={fromLocation} />}
             {toLocation && <Marker position={toLocation} />}
           </GoogleMap>
         </Box>
       </Flex>
 
-      {/* Hero Section */}
-      <Flex 
-        direction={{ base: "column", md: "row" }}  // Stack vertically on mobile, row on larger screens
+     
+      <Flex
+        direction={{ base: "column", md: "row" }}
         alignItems="center"
-        p={6} 
-        mb={8} 
+        p={{ base: 4, md: 6 }}
+        mb={8}
       >
-        {/* Left side: Image */}
+       
         <Box
           flex="1"
-          height="400px" 
+          height={{ base: "200px", md: "400px" }}
           borderRadius="lg"
-          backgroundImage="url('/RideMain.jpg')" 
-          backgroundSize="cover" 
-          backgroundPosition="center" 
+          backgroundImage="url('/RideMain.jpg')"
+          backgroundSize="cover"
+          backgroundPosition="center"
+          mb={{ base: 4, md: 0 }} 
         />
 
-        {/* Right side: Text and Grid content */}
+       
         <VStack
-          spacing={4}
-          align="start"
-          flex="1"
-          color="gray.800"
-          p={6}  // Padding for spacing
-          minWidth="300px"  // Minimum width to ensure proper layout
-        >
-          {/* Text content */}
-          <Box mb={4} flex="1">
-            <Text fontSize={{ base: "2xl", md: "3xl" }} color='#9253D2' fontWeight="bold">
-              Ready for a smooth ride?
-            </Text>
-            <Text fontSize={{ base: "md", md: "lg" }} color='#2E4ADC' mt={2}>
-              Sit back, relax, and enjoy your trip.
-            </Text>
-          </Box>
+    spacing={4}
+    align="start"
+    flex="1" 
+    p={6}
+    color={useColorModeValue("gray.800", "gray.300")}
+    width="100%" 
+    maxWidth="1200px"  
+    justify="center"
+  >
+    
+    <Text fontSize={{ base: "xl", md: "3xl" }} color="#9253D2" fontWeight="bold">
+      Ready for a smooth ride?
+    </Text>
+    <Text fontSize={{ base: "md", md: "lg" }}>
+      Book a ride for now, schedule it for later, or explore other options.
+    </Text>
 
-          {/* Images Section */}
-          <Box flex="1" width="full">
-            <Text fontSize="xl" fontWeight="bold"  color='#9253D2' mb={4}>
-              Explore by popular way
-            </Text>
-            <Grid templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }} color='#9253D2' gap={4} mb={8}>
-              {["Ride", "Car", "Reserve"].map((option, idx) => (
-                <Box
-                  key={idx}
-                  textAlign="center"
-                  p={6}
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  bg={useColorModeValue("white", "gray.700")}
-                  height="200px"
-                  boxShadow="lg"
-                  _hover={{ boxShadow: "2xl", cursor: "pointer", transform: "scale(1.05)" }}
-                  onClick={() => handleClick(option)}
-                >
-                  <Image borderRadius="lg" src={`/Image${option}.png`} alt={option} boxSize="100px" />
-                  <Flex justify="center" align="center" mt={2}>
-                    <Text fontWeight="bold">{option}</Text>
-                    <ChevronRightIcon ml={2} />
-                  </Flex>
-                </Box>
-              ))}
-            </Grid>
-          </Box>
-        </VStack>
+   
+    <Grid 
+      templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }} 
+      color='#9253D2' 
+      gap={4} 
+      mb={8} 
+      width="100%" 
+    >
+      {["Ride", "Car", "Reserve"].map((option, idx) => (
+        <Box
+          key={idx}
+          textAlign="center"
+          p={6}
+          borderWidth="1px"
+          borderRadius="lg"
+          bg={useColorModeValue("white", "gray.700")}
+          height="200px"
+          boxShadow="lg"
+          _hover={{ boxShadow: "2xl", cursor: "pointer", transform: "scale(1.05)" }}
+          onClick={() => handleClick(option)}
+        >
+          <Image borderRadius="lg" src={`/Image${option}.png`} alt={option} boxSize="100px" />
+          <Flex justify="center" align="center" mt={2}>
+            <Text fontWeight="bold">{option}</Text>
+            <ChevronRightIcon ml={2} />
+          </Flex>
+        </Box>
+      ))}
+    </Grid>
+  </VStack>
       </Flex>
 
-      {/* Modal for Ride History */}
+    
+     
       <Modal isOpen={isHistoryOpen} onClose={onHistoryClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Ride History</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text fontWeight="bold">Past Rides:</Text>
-            <VStack spacing={4} align="start">
-              <Box>
-                <Text>Date: 12th September 2023</Text>
-                <Text>Fare: $15</Text>
-                <Text>Driver: Ben Smith</Text>
-              </Box>
-              <Box>
-                <Text>Date: 5th September 2023</Text>
-                <Text>Fare: $20</Text>
-                <Text>Driver: Jack </Text>
-              </Box>
-            </VStack>
+            <Text>Your previous rides will appear here.</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onHistoryClose}>
+            <Button variant="ghost" onClick={onHistoryClose}>
               Close
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
-      {/* Modal for Ride Share */}
+     
       <Modal isOpen={isShareOpen} onClose={onShareClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Ride Share</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text fontWeight="bold">Share your ride details:</Text>
-            <VStack spacing={4} align="start">
-              <Box>
-                <Text>Date: 12th September 2023</Text>
-                <Text>Fare: $15</Text>
-                <Text>Driver: Max Gayle</Text>
-              </Box>
-              <Box>
-                <Text>Share this ride with your friends:</Text>
-                {/* Placeholder for share functionality */}
-                <Button colorScheme="blue" onClick={() => alert("Sharing feature coming soon!")}>
-                  Share Ride
-                </Button>
-              </Box>
-            </VStack>
+            <Text>Your ride share details will be displayed here.</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onShareClose}>
+            <Button variant="ghost" onClick={onShareClose}>
               Close
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
+      <Box
+        as="footer"
+        width="100%"
+        bg={useColorModeValue("gray.100", "gray.800")}
+        color={useColorModeValue("gray.800", "gray.100")}
+        mt={8}
+        py={6}
+        px={4}
+      >
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          justify="space-between"
+          align="center"
+          maxW="1200px"
+          mx="auto"
+        >
+         
+          <HStack spacing={8} mb={{ base: 4, md: 0 }}>
+            <Text fontWeight="bold" fontSize="lg">
+              <a href="/about">About Us</a>
+            </Text>
+            <Text fontWeight="bold" fontSize="lg">
+              <a href="/terms">Terms of Service</a>
+            </Text>
+            <Text fontWeight="bold" fontSize="lg">
+              <a href="/contact">Contact</a>
+            </Text>
+          </HStack>
 
+         
+          <HStack spacing={4}>
+            <IconButton
+              as="a"
+              href="https://www.facebook.com"
+              target="_blank"
+              aria-label="Facebook"
+              icon={<FaFacebook />}
+              variant="ghost"
+              size="lg"
+              color={useColorModeValue("gray.600", "gray.400")}
+              _hover={{ color: "#3b5998" }}
+            />
+            <IconButton
+              as="a"
+              href="https://www.twitter.com"
+              target="_blank"
+              aria-label="Twitter"
+              icon={<FaTwitter />}
+              variant="ghost"
+              size="lg"
+              color={useColorModeValue("gray.600", "gray.400")}
+              _hover={{ color: "#1DA1F2" }}
+            />
+            <IconButton
+              as="a"
+              href="https://www.instagram.com"
+              target="_blank"
+              aria-label="Instagram"
+              icon={<FaInstagram />}
+              variant="ghost"
+              size="lg"
+              color={useColorModeValue("gray.600", "gray.400")}
+              _hover={{ color: "#E4405F" }}
+            />
+          </HStack>
+        </Flex>
 
+       
+        <Text textAlign="center" mt={4} fontSize="sm">
+          &copy; {new Date().getFullYear()} RideShare. All rights reserved.
+        </Text>
+      </Box>
     </Box>
   );
 }

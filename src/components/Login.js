@@ -23,10 +23,10 @@ const Login = () => {
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
 
-  // Updated colors for light and dark modes
+ 
   const bg = useColorModeValue('white', 'gray.800'); 
-  const textColor = useColorModeValue('blue.900', 'blue.300'); // Dark blue/violet for both modes
-  const inputBg = useColorModeValue('gray.50', 'gray.600'); // Input background colors
+  const textColor = useColorModeValue('blue.900', 'blue.300'); 
+  const inputBg = useColorModeValue('gray.50', 'gray.600');
 
   const handleSubmit = (e) => {
     e.preventDefault();

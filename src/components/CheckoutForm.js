@@ -1,4 +1,4 @@
-// src/components/CheckoutForm.js
+
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Box, Button, Text } from '@chakra-ui/react';
@@ -27,7 +27,7 @@ const CheckoutForm = () => {
       console.log('[error]', error);
     } else {
       console.log('[PaymentMethod]', paymentMethod);
-      // Handle payment processing (e.g., send paymentMethod.id to your server)
+     
     }
 
     setProcessing(false);

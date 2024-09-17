@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/lastpage" element={<Lastpage />} />
         <Route path="/profile" element={<Profile />} />
 
-        {/* Only wrap the routes where you need Stripe Elements */}
+       
         <Route
           path="/card-element"
           element={
